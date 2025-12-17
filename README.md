@@ -1,8 +1,8 @@
-# Lark-Next-Bootstrap-ts
+# lark-next-shadcn-ts
 
 [Lark][0] project scaffold based on [TypeScript][2], [React][1], [Next.js][3], [Bootstrap][4] & [Workbox][5]. And this project bootstrapped with [`create-next-app`][6].
 
-[![CI & CD](https://github.com/idea2app/Lark-Next-Bootstrap-ts/actions/workflows/main.yml/badge.svg)][7]
+[![CI & CD](https://github.com/idea2app/lark-next-shadcn-ts/actions/workflows/main.yml/badge.svg)][7]
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)][8]
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)][9]
@@ -123,9 +123,9 @@ pnpm container
 [4]: https://getbootstrap.com/
 [5]: https://developers.google.com/web/tools/workbox
 [6]: https://github.com/vercel/next.js/tree/canary/packages/create-next-app
-[7]: https://github.com/idea2app/Lark-Next-Bootstrap-ts/actions/workflows/main.yml
-[8]: https://codespaces.new/idea2app/Lark-Next-Bootstrap-ts
-[9]: https://gitpod.io/?autostart=true#https://github.com/idea2app/Lark-Next-Bootstrap-ts
+[7]: https://github.com/idea2app/lark-next-shadcn-ts/actions/workflows/main.yml
+[8]: https://codespaces.new/idea2app/lark-next-shadcn-ts
+[9]: https://gitpod.io/?autostart=true#https://github.com/idea2app/lark-next-shadcn-ts
 [10]: https://mdxjs.com/
 [11]: https://mobx.js.org/
 [12]: https://koajs.com/
@@ -135,12 +135,12 @@ pnpm container
 [16]: https://github.com/apps/settings
 [17]: https://pullrequestbadge.com/
 [18]: https://code.visualstudio.com/
-[19]: https://github.com/new?template_name=Lark-Next-Bootstrap-ts&template_owner=idea2app
-[20]: https://github.com/idea2app/Lark-Next-Bootstrap-ts/blob/afa51fad3b16e598bf3b10010b2dc47405b016a3/.github/workflows/main.yml#L9-L11
-[21]: https://github.com/idea2app/Lark-Next-Bootstrap-ts/blob/363e023e5dd472c8ea53ec96eac25ec5122e667b/.github/workflows/Lark-notification.yml#L39
-[22]: https://github.com/idea2app/Lark-Next-Bootstrap-ts/settings/secrets/actions
-[23]: https://github.com/idea2app/Lark-Next-Bootstrap-ts/issues/new/choose
-[24]: https://github.com/idea2app/Lark-Next-Bootstrap-ts/projects
+[19]: https://github.com/new?template_name=lark-next-shadcn-ts&template_owner=idea2app
+[20]: https://github.com/idea2app/lark-next-shadcn-ts/blob/afa51fad3b16e598bf3b10010b2dc47405b016a3/.github/workflows/main.yml#L9-L11
+[21]: https://github.com/idea2app/lark-next-shadcn-ts/blob/363e023e5dd472c8ea53ec96eac25ec5122e667b/.github/workflows/Lark-notification.yml#L39
+[22]: https://github.com/idea2app/lark-next-shadcn-ts/settings/secrets/actions
+[23]: https://github.com/idea2app/lark-next-shadcn-ts/issues/new/choose
+[24]: https://github.com/idea2app/lark-next-shadcn-ts/projects
 [25]: https://nextjs.org/docs/api-routes/introduction
 [26]: https://nextjs.org/docs
 [27]: https://nextjs.org/learn

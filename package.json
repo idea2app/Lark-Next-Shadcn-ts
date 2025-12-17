@@ -1,5 +1,5 @@
 {
-  "name": "@idea2app/lark-next-bootstrap-ts",
+  "name": "@idea2app/lark-next-shadcn-ts",
   "version": "2.4.0",
   "description": "Lark project scaffold based on TypeScript, React, Next.js, Bootstrap & Workbox.",
   "private": true,
@@ -123,7 +123,7 @@
     "build": "next build --webpack",
     "start": "next start",
     "test": "lint-staged  &&  tsc --noEmit",
-    "pack-image": "docker build -t idea2app/lark-next-bootstrap-ts:latest .",
-    "container": "docker rm -f lark-next-bootstrap-ts  &&  docker run --name lark-next-bootstrap-ts -p 3000:3000 -d idea2app/lark-next-bootstrap-ts:latest"
+    "pack-image": "docker build -t idea2app/lark-next-shadcn-ts:latest .",
+    "container": "docker rm -f lark-next-shadcn-ts  &&  docker run --name lark-next-shadcn-ts -p 3000:3000 -d idea2app/lark-next-shadcn-ts:latest"
   }
 }

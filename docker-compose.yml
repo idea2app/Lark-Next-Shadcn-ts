@@ -4,8 +4,8 @@ networks:
   idea2app:
 
 services:
-  lark-next-bootstrap-ts:
-    image: idea2app/lark-next-bootstrap-ts
+  lark-next-shadcn-ts:
+    image: idea2app/lark-next-shadcn-ts
     networks:
       - idea2app
     healthcheck:
@@ -36,11 +36,11 @@ services:
 
   caddy:
     depends_on:
-      - lark-next-bootstrap-ts
+      - lark-next-shadcn-ts
     image: caddy
     ports:
       - 80:80
       - 443:443
     networks:
       - idea2app
-    command: caddy reverse-proxy --from your.domain.com --to lark-next-bootstrap-ts:3000
+    command: caddy reverse-proxy --from your.domain.com --to lark-next-shadcn-ts:3000
