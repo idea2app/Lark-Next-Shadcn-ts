@@ -37,6 +37,7 @@ export default defineConfig(
       '**/public/**',
       '**/.next/**',
       '.github/scripts/**',
+      'postcss.config.js',
     ],
   },
 

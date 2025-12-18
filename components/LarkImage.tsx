@@ -1,23 +1,27 @@
 import { TableCellValue } from 'mobx-lark';
-import { FC } from 'react';
-import { Image, ImageProps } from 'react-bootstrap';
+import { FC, type ImgHTMLAttributes } from 'react';
 
+import { cn } from '../lib/utils';
 import { fileURLOf } from '../models/Base';
 import { DefaultImage } from '../models/configuration';
 
-export interface LarkImageProps extends Omit<ImageProps, 'src'> {
+export interface LarkImageProps extends Omit<
+  ImgHTMLAttributes<HTMLImageElement>,
+  'src'
+> {
   src?: TableCellValue;
 }
 
 export const LarkImage: FC<LarkImageProps> = ({
   src = DefaultImage,
   alt,
+  className,
   ...props
 }) => (
-  <Image
-    fluid
+  <img
     loading="lazy"
     {...props}
+    className={cn('h-auto max-w-full', className)}
     src={fileURLOf(src, true)}
     alt={alt}
     onError={({ currentTarget: image }) => {

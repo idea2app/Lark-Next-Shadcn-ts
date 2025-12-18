@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import { textJoin } from 'mobx-i18n';
 import { observer } from 'mobx-react';
 import { FC, PropsWithChildren, useContext } from 'react';
-import { Container } from 'react-bootstrap';
 import { CodeBlock, EditorHTML } from 'idea-react';
 
 import 'prismjs/components/prism-javascript';
@@ -25,14 +24,17 @@ const BlockEditor = dynamic(() => import('../components/Form/BlockEditor'), {
 });
 BlockEditor.displayName = 'BlockEditor';
 
-const Example: FC<PropsWithChildren<{ title: string }>> = ({
+const Example: FC<PropsWithChildren<{ title: string; code: string }>> = ({
   title,
+  code,
   children,
 }) => (
   <>
-    <h2 className="mt-3">{title}</h2>
-    {children}
-    <CodeBlock language="tsx">{children}</CodeBlock>
+    <h2 className="mt-8 text-lg font-semibold">{title}</h2>
+    <div className="mt-3">{children}</div>
+    <div className="mt-3">
+      <CodeBlock language="tsx">{code}</CodeBlock>
+    </div>
   </>
 );
 
@@ -50,21 +52,30 @@ const ComponentPage = observer(() => {
         />
       </PageHead>
 
-      <Container>
-        <h1 className="my-4 text-center">{title}</h1>
+      <div className="mx-auto w-full max-w-5xl px-4 py-6">
+        <h1 className="my-4 text-center text-2xl font-semibold">{title}</h1>
 
-        <Example title="HTML Editor">
+        <Example
+          title="HTML Editor"
+          code='<HTMLEditor defaultValue="Hello, HTML!" onChange={console.info} />'
+        >
           <HTMLEditor defaultValue="Hello, HTML!" onChange={console.info} />
         </Example>
 
-        <Example title="Block Editor">
+        <Example
+          title="Block Editor"
+          code='<BlockEditor name="content" defaultValue={RichEditData} />'
+        >
           <BlockEditor name="content" defaultValue={RichEditData} />
         </Example>
 
-        <Example title="Block Editor to HTML">
+        <Example
+          title="Block Editor to HTML"
+          code="<EditorHTML data={RichEditData} />"
+        >
           <EditorHTML data={RichEditData} />
         </Example>
-      </Container>
+      </div>
     </>
   );
 });
