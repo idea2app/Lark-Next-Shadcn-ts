@@ -1,10 +1,10 @@
-import { text2color } from 'idea-react';
 import { GitRepository } from 'mobx-github';
 import { observer } from 'mobx-react';
 import { FC, type HTMLAttributes, useContext } from 'react';
 
 import { cn } from '../../lib/utils';
 import { I18nContext } from '../../models/Translation';
+import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import {
   Card,
@@ -52,17 +52,15 @@ export const GitCard: FC<GitCardProps> = observer(
         </CardHeader>
 
         <CardContent className="flex flex-1 flex-col gap-3 pt-0">
-          <nav className="flex flex-wrap gap-1">
+          <nav className="flex min-h-16 flex-wrap content-start gap-1">
             {topics.map(topic => (
               <a
                 key={topic}
-                className="text-foreground inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold no-underline transition-opacity hover:opacity-90"
-                style={{ backgroundColor: text2color(topic, ['light']) }}
                 target="_blank"
                 rel="noreferrer"
                 href={`https://github.com/topics/${topic}`}
               >
-                {topic}
+                <Badge variant="secondary">{topic}</Badge>
               </a>
             ))}
           </nav>
@@ -76,7 +74,9 @@ export const GitCard: FC<GitCardProps> = observer(
           </ul>
 
           {description && (
-            <p className="text-muted-foreground text-sm">{description}</p>
+            <p className="text-muted-foreground flex-1 text-sm">
+              {description}
+            </p>
           )}
         </CardContent>
 

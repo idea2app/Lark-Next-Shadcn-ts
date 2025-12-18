@@ -49,6 +49,23 @@ export const framework = [
     ],
   },
   {
+    title: 'shadcn/ui',
+    summary:
+      'Beautifully designed components built with Radix UI and Tailwind CSS.',
+    logo: 'shadcn.png',
+    link: 'https://ui.shadcn.com/',
+    repository: 'https://github.com/shadcn-ui/ui',
+    languages: ['TypeScript'],
+    tags: [
+      'react',
+      'tailwindcss',
+      'radix-ui',
+      'components',
+      'ui',
+      'design-system',
+    ],
+  },
+  {
     title: 'TypeScript',
     summary: 'TypeScript is JavaScript with syntax for types.',
     logo: 'typescript.png',
