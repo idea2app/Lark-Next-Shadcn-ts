@@ -14,25 +14,30 @@ export const getStaticProps = async () => {
 };
 
 const renderTree = (list: ArticleMeta[]) => (
-  <ol>
+  <ol className="space-y-2">
     {list.map(({ name, path, meta, subs }) => (
       <li key={name}>
         {path ? (
           <a
-            className="h4 d-flex justify-content-between align-items-center"
+            className="text-primary hover:bg-muted flex items-center justify-between gap-3 rounded-md px-3 py-2 text-sm font-medium underline-offset-4 hover:underline"
             href={path}
           >
             {name}{' '}
             {meta && (
-              <time className="fs-6" dateTime={meta.updated || meta.date}>
+              <time
+                className="text-muted-foreground text-xs font-normal"
+                dateTime={meta.updated || meta.date}
+              >
                 {meta.updated || meta.date}
               </time>
             )}
           </a>
         ) : (
-          <details>
-            <summary className="h4">{name}</summary>
-            {renderTree(subs)}
+          <details className="bg-card rounded-md border px-3 py-2">
+            <summary className="cursor-pointer text-sm font-semibold">
+              {name}
+            </summary>
+            <div className="mt-2 pl-2">{renderTree(subs)}</div>
           </details>
         )}
       </li>
@@ -45,7 +50,14 @@ const ArticleIndexPage: FC<InferGetStaticPropsType<typeof getStaticProps>> =
     const { t } = useContext(I18nContext);
 
     return (
-      <MDXLayout className="" title={`${t('article')} (${length})`}>
+      <MDXLayout title={`${t('article')} (${length})`}>
+        <div className="bg-muted/40 text-muted-foreground mb-6 rounded-md border px-4 py-3 text-sm">
+          This page lists local{' '}
+          <code className="bg-muted rounded px-1 py-0.5">.md/.mdx</code> files
+          under{' '}
+          <code className="bg-muted rounded px-1 py-0.5">pages/article</code>.
+          Remove or replace those files to customize this section.
+        </div>
         {renderTree(tree)}
       </MDXLayout>
     );

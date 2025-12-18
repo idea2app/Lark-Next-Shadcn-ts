@@ -1,24 +1,19 @@
-import {
-  AudioTool,
-  CopyMarkdownTool,
-  Editor,
-  EditorProps,
-  IFrameTool,
-  ImageTool,
-  OriginalTools,
-  VideoTool,
-} from 'react-bootstrap-editor';
-import { Constructor } from 'web-utility';
+import { type TextareaHTMLAttributes } from 'react';
 
-import { upload } from '../../models/Base';
+import { cn } from '../../lib/utils';
 
-const ExcludeTools = [IFrameTool, AudioTool, VideoTool];
+export interface HTMLEditorProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  className?: string;
+}
 
-const CustomTools = OriginalTools.filter(
-  Tool => !ExcludeTools.includes(Tool as Constructor<IFrameTool>),
-);
-ImageTool.prototype.save = upload;
-
-export default function HTMLEditor(props: EditorProps) {
-  return <Editor tools={[...CustomTools, CopyMarkdownTool]} {...props} />;
+export default function HTMLEditor({ className, ...props }: HTMLEditorProps) {
+  return (
+    <textarea
+      {...props}
+      className={cn(
+        'border-input bg-background text-foreground focus-visible:ring-ring min-h-48 w-full rounded-md border px-3 py-2 font-mono text-sm shadow-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+        className,
+      )}
+    />
+  );
 }

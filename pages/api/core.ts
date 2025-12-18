@@ -91,23 +91,25 @@ export async function* pageListOf(
   prefix = 'pages',
 ): AsyncGenerator<ArticleMeta> {
   const { readdir, readFile } = await import('fs/promises');
+  const { join } = await import('path');
 
-  const list = await readdir(prefix + path, { withFileTypes: true });
+  const basePath = join(prefix, path.replace(/^\//, ''));
+  const list = await readdir(basePath, { withFileTypes: true });
 
   for (const node of list) {
-    let { name, path } = node;
+    let { name } = node;
 
     if (name.startsWith('.')) continue;
 
     const isMDX = MDX_pattern.test(name);
 
     name = name.replace(MDX_pattern, '');
-    path = `${path}/${name}`.replace(new RegExp(`^${prefix}`), '');
+    const nextPath = `${path}/${name}`.replace(new RegExp(`^${prefix}`), '');
 
     if (node.isFile() && isMDX) {
-      const article: ArticleMeta = { name, path, subs: [] };
+      const article: ArticleMeta = { name, path: nextPath, subs: [] };
 
-      const file = await readFile(`${node.path}/${node.name}`, 'utf-8');
+      const file = await readFile(join(basePath, node.name), 'utf-8');
 
       const { meta } = splitFrontMatter(file);
 
@@ -117,7 +119,7 @@ export async function* pageListOf(
     }
     if (!node.isDirectory()) continue;
 
-    const subs = await Array.fromAsync(pageListOf(path, prefix));
+    const subs = await Array.fromAsync(pageListOf(nextPath, prefix));
 
     if (subs[0]) yield { name, subs };
   }

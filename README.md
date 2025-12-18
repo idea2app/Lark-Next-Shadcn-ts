@@ -120,7 +120,7 @@ pnpm container
 [1]: https://react.dev/
 [2]: https://www.typescriptlang.org/
 [3]: https://nextjs.org/
-[4]: https://getbootstrap.com/
+[4]: https://ui.shadcn.com/
 [5]: https://developers.google.com/web/tools/workbox
 [6]: https://github.com/vercel/next.js/tree/canary/packages/create-next-app
 [7]: https://github.com/idea2app/lark-next-shadcn-ts/actions/workflows/main.yml

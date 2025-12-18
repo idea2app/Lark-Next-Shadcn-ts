@@ -1,14 +1,23 @@
 import { text2color } from 'idea-react';
 import { GitRepository } from 'mobx-github';
 import { observer } from 'mobx-react';
-import { FC, useContext } from 'react';
-import { Badge, Button, Card, CardProps, Col, Row } from 'react-bootstrap';
+import { FC, type HTMLAttributes, useContext } from 'react';
 
+import { cn } from '../../lib/utils';
 import { I18nContext } from '../../models/Translation';
+import { Button } from '../ui/button';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '../ui/card';
 import { GitLogo } from './Logo';
 
 export interface GitCardProps
-  extends Omit<CardProps, 'id'>,
+  extends
+    Omit<HTMLAttributes<HTMLDivElement>, 'id'>,
     Pick<GitRepository, 'full_name' | 'html_url' | 'languages'>,
     Partial<Pick<GitRepository, 'topics' | 'description' | 'homepage'>> {
   className?: string;
@@ -28,44 +37,59 @@ export const GitCard: FC<GitCardProps> = observer(
     const { t } = useContext(I18nContext);
 
     return (
-      <Card className={className} {...props}>
-        <Card.Body className="d-flex flex-column gap-3">
-          <Card.Title as="h3" className="h5">
-            <a target="_blank" href={html_url} rel="noreferrer">
+      <Card className={cn('flex h-full flex-col', className)} {...props}>
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg">
+            <a
+              className="underline-offset-4 hover:underline"
+              target="_blank"
+              href={html_url}
+              rel="noreferrer"
+            >
               {full_name}
             </a>
-          </Card.Title>
+          </CardTitle>
+        </CardHeader>
 
-          <nav className="flex-fill">
+        <CardContent className="flex flex-1 flex-col gap-3 pt-0">
+          <nav className="flex flex-wrap gap-1">
             {topics.map(topic => (
-              <Badge
+              <a
                 key={topic}
-                className="me-1 text-decoration-none"
-                bg={text2color(topic, ['light'])}
-                as="a"
+                className="text-foreground inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold no-underline transition-opacity hover:opacity-90"
+                style={{ backgroundColor: text2color(topic, ['light']) }}
                 target="_blank"
+                rel="noreferrer"
                 href={`https://github.com/topics/${topic}`}
               >
                 {topic}
-              </Badge>
+              </a>
             ))}
           </nav>
-          <Row as="ul" className="list-unstyled g-4" xs={4}>
+
+          <ul className="grid list-none grid-cols-4 gap-4 p-0">
             {languages.map(language => (
-              <Col key={language} as="li">
+              <li key={language}>
                 <GitLogo name={language} />
-              </Col>
+              </li>
             ))}
-          </Row>
-          <Card.Text>{description}</Card.Text>
-        </Card.Body>
-        <Card.Footer className="d-flex justify-content-between align-items-center">
+          </ul>
+
+          {description && (
+            <p className="text-muted-foreground text-sm">{description}</p>
+          )}
+        </CardContent>
+
+        <CardFooter className="justify-between">
+          <div />
           {homepage && (
-            <Button variant="success" target="_blank" href={homepage}>
-              {t('home_page')}
+            <Button variant="secondary" asChild>
+              <a target="_blank" rel="noreferrer" href={homepage}>
+                {t('home_page')}
+              </a>
             </Button>
           )}
-        </Card.Footer>
+        </CardFooter>
       </Card>
     );
   },
