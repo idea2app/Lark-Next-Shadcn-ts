@@ -25,21 +25,12 @@ export default class CustomDocument extends Document<CustomDocumentProps> {
     const { language, colorScheme } = this.props;
 
     return (
-      <Html lang={language} data-bs-theme={colorScheme}>
+      <Html lang={language} className={colorScheme === 'dark' ? 'dark' : ''}>
         <Head>
           <link rel="icon" href="/favicon.ico" />
 
           <link rel="manifest" href="/manifest.json" />
           <script src="https://polyfill.web-cell.dev/feature/PWAManifest.js" />
-
-          <link
-            rel="stylesheet"
-            href="https://bootswatch.com/5/quartz/bootstrap.min.css"
-          />
-          <link
-            rel="stylesheet"
-            href="https://unpkg.com/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
-          />
         </Head>
 
         <body>

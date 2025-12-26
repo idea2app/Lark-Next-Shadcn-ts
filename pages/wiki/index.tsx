@@ -2,7 +2,6 @@ import { WikiNode } from 'mobx-lark';
 import { observer } from 'mobx-react';
 import { GetStaticProps } from 'next';
 import { FC, useContext } from 'react';
-import { Container } from 'react-bootstrap';
 import { treeFrom } from 'web-utility';
 
 import { PageHead } from '../../components/Layout/PageHead';
@@ -11,11 +10,17 @@ import wikiStore from '../../models/Wiki';
 import { lark } from '../api/Lark/core';
 
 export const getStaticProps: GetStaticProps = async () => {
-  await lark.getAccessToken();
+  try {
+    await lark.getAccessToken();
 
-  const nodes = await wikiStore.getAll();
+    const nodes = await wikiStore.getAll();
 
-  return { props: { nodes } };
+    return { props: { nodes } };
+  } catch (error) {
+    console.error(error);
+
+    return { props: { nodes: [] } };
+  }
 };
 
 interface XWikiNode extends WikiNode {
@@ -25,10 +30,15 @@ interface XWikiNode extends WikiNode {
 
 const renderTree = (children?: XWikiNode[]) =>
   children && (
-    <ol>
+    <ol className="space-y-1 pl-6">
       {children.map(({ node_token, title, children }) => (
         <li key={node_token}>
-          <a href={`/wiki/${node_token}`}>{title}</a>
+          <a
+            className="text-primary underline-offset-4 hover:underline"
+            href={`/wiki/${node_token}`}
+          >
+            {title}
+          </a>
 
           {renderTree(children)}
         </li>
@@ -40,15 +50,17 @@ const WikiIndexPage: FC<{ nodes: XWikiNode[] }> = observer(({ nodes }) => {
   const { t } = useContext(I18nContext);
 
   return (
-    <Container>
+    <div className="mx-auto w-full max-w-4xl px-4 py-6">
       <PageHead title={t('wiki')} />
 
-      <h1>{t('wiki')}</h1>
+      <h1 className="mb-4 text-2xl font-semibold">{t('wiki')}</h1>
 
-      {renderTree(
-        treeFrom(nodes, 'node_token', 'parent_node_token', 'children'),
-      )}
-    </Container>
+      {nodes[0]
+        ? renderTree(
+            treeFrom(nodes, 'node_token', 'parent_node_token', 'children'),
+          )
+        : null}
+    </div>
   );
 });
 

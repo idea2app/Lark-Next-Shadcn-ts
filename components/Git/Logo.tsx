@@ -1,9 +1,10 @@
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import { Component } from 'react';
-import { Image, ImageProps } from 'react-bootstrap';
+import { Component, type ImgHTMLAttributes } from 'react';
 
-export interface GitLogoProps extends ImageProps {
+import { cn } from '../../lib/utils';
+
+export interface GitLogoProps extends ImgHTMLAttributes<HTMLImageElement> {
   name: string;
 }
 
@@ -41,8 +42,18 @@ export class GitLogo extends Component<GitLogoProps> {
 
   render() {
     const { path } = this;
-    const { name, ...props } = this.props;
+    const { name, className, ...props } = this.props;
 
-    return path && <Image fluid {...props} src={path} alt={name} />;
+    return (
+      path && (
+        <img
+          {...props}
+          className={cn('h-10 w-10 object-contain', className)}
+          src={path}
+          alt={name}
+          loading="lazy"
+        />
+      )
+    );
   }
 }

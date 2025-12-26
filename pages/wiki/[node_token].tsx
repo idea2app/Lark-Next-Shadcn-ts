@@ -1,7 +1,6 @@
 import { Block, renderBlocks, WikiNode } from 'mobx-lark';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import { FC } from 'react';
-import { Container } from 'react-bootstrap';
 import { Minute, Second } from 'web-utility';
 
 import { PageHead } from '../../components/Layout/PageHead';
@@ -10,24 +9,33 @@ import wikiStore from '../../models/Wiki';
 import { lark } from '../api/Lark/core';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  await lark.getAccessToken();
+  try {
+    await lark.getAccessToken();
 
-  const nodes = await wikiStore.getAll();
+    const nodes = await wikiStore.getAll();
 
-  return {
-    paths: nodes.map(({ node_token }) => ({ params: { node_token } })),
-    fallback: 'blocking',
-  };
+    return {
+      paths: nodes.map(({ node_token }) => ({ params: { node_token } })),
+      fallback: 'blocking',
+    };
+  } catch (error) {
+    console.error(error);
+
+    return {
+      paths: [],
+      fallback: 'blocking',
+    };
+  }
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  await lark.getAccessToken();
-
-  const node = await wikiStore.getOne(params!.node_token as string);
-
-  if (node?.obj_type !== 'docx') return { notFound: true };
-
   try {
+    await lark.getAccessToken();
+
+    const node = await wikiStore.getOne(params!.node_token as string);
+
+    if (node?.obj_type !== 'docx') return { notFound: true };
+
     const blocks = await documentStore.getOneBlocks(
       node.obj_token,
       token => `/api/Lark/file/${token}/placeholder`,
@@ -47,11 +55,11 @@ interface WikiDocumentPageProps {
 }
 
 const WikiDocumentPage: FC<WikiDocumentPageProps> = ({ node, blocks }) => (
-  <Container>
+  <div className="mx-auto w-full max-w-4xl px-4 py-6">
     <PageHead title={node.title} />
 
     {renderBlocks(blocks)}
-  </Container>
+  </div>
 );
 
 export default WikiDocumentPage;
