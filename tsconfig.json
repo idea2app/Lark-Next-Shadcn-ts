@@ -16,7 +16,11 @@
     "downlevelIteration": true,
     "useDefineForClassFields": true,
     "jsx": "react-jsx",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": ["next-env.d.ts", "**/*.mjs", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

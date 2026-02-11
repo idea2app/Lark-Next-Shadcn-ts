@@ -23,21 +23,7 @@ export const LarkAppMeta = {
   secret: process.env.LARK_APP_SECRET!,
 };
 
-let larkWikiDomain = '';
-let larkWikiId = '';
+const { hostname, pathname } = new URL(process.env.NEXT_PUBLIC_LARK_WIKI_URL!);
 
-try {
-  if (process.env.NEXT_PUBLIC_LARK_WIKI_URL) {
-    const { hostname, pathname } = new URL(
-      process.env.NEXT_PUBLIC_LARK_WIKI_URL,
-    );
-    larkWikiDomain = hostname;
-    larkWikiId = pathname.split('/').pop() || '';
-  }
-} catch {
-  larkWikiDomain = '';
-  larkWikiId = '';
-}
-
-export const LarkWikiDomain = larkWikiDomain;
-export const LarkWikiId = larkWikiId;
+export const LarkWikiDomain = hostname;
+export const LarkWikiId = pathname.split('/').pop()!;

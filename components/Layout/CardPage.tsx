@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ComponentClass, FC } from 'react';
 
+import { cn } from '../../lib/utils';
 import { SearchPageMeta } from '../../models/System';
 import { Button } from '../ui/button';
 
@@ -19,38 +20,34 @@ export const CardPage: FC<CardPageProps> = ({
   pageLinkOf,
 }) => (
   <>
-    <div className="my-3 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
+    <ol className="my-3 grid list-none grid-cols-1 gap-3 p-0 md:grid-cols-2 lg:grid-cols-3">
       {currentPage.map(item => (
-        <div key={item.id as string} className="h-full">
+        <li key={item.id as string} className="h-full">
           <Card className="h-full" linkOf={cardLinkOf} {...item} />
-        </div>
+        </li>
       ))}
-    </div>
+    </ol>
 
-    <div className="my-6 flex items-center justify-center gap-2">
-      {pageIndex === 1 ? (
-        <Button variant="outline" size="lg" disabled>
-          Prev
-        </Button>
-      ) : (
-        <Button variant="outline" size="lg" asChild>
-          <Link href={pageLinkOf(pageIndex - 1)}>Prev</Link>
-        </Button>
-      )}
+    <nav className="my-6 flex items-center justify-center gap-2">
+      <Button
+        variant="outline"
+        size="lg"
+        asChild
+        className={cn(pageIndex === 1 && 'pointer-events-none opacity-50')}
+      >
+        <Link href={pageLinkOf(pageIndex - 1)}>Prev</Link>
+      </Button>
 
-      <div className="text-muted-foreground text-sm">
-        {pageIndex} / {pageCount}
-      </div>
-
-      {pageIndex === pageCount ? (
-        <Button variant="outline" size="lg" disabled>
-          Next
-        </Button>
-      ) : (
-        <Button variant="outline" size="lg" asChild>
-          <Link href={pageLinkOf(pageIndex + 1)}>Next</Link>
-        </Button>
-      )}
-    </div>
+      <Button
+        variant="outline"
+        size="lg"
+        asChild
+        className={cn(
+          pageIndex === pageCount && 'pointer-events-none opacity-50',
+        )}
+      >
+        <Link href={pageLinkOf(pageIndex + 1)}>Next</Link>
+      </Button>
+    </nav>
   </>
 );

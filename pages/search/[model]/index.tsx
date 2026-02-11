@@ -51,15 +51,10 @@ const SearchCardMap: Record<string, CardPageProps['Card']> = {};
 
 const SearchModelPage: FC<SearchModelPageProps> = observer(
   ({ route: { params, query }, ...pageMeta }) => {
-    const { t } = useContext(I18nContext);
-    const { model } = params!;
-    const keywords =
-      typeof query.keywords === 'string'
-        ? query.keywords
-        : Array.isArray(query.keywords)
-          ? (query.keywords[0] ?? '')
-          : '';
-    const nameMap = SearchNameMap();
+    const { t } = useContext(I18nContext),
+      { model } = params!,
+      { keywords = '' } = query as { keywords?: string },
+      nameMap = SearchNameMap();
     const name = nameMap[model],
       Card = SearchCardMap[model];
     const title = `${keywords} - ${name} ${t('search_results')}`;

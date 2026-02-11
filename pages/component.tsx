@@ -24,16 +24,15 @@ const BlockEditor = dynamic(() => import('../components/Form/BlockEditor'), {
 });
 BlockEditor.displayName = 'BlockEditor';
 
-const Example: FC<PropsWithChildren<{ title: string; code: string }>> = ({
+const Example: FC<PropsWithChildren<{ title: string }>> = ({
   title,
-  code,
   children,
 }) => (
   <>
     <h2 className="mt-8 text-lg font-semibold">{title}</h2>
     <div className="mt-3">{children}</div>
     <div className="mt-3">
-      <CodeBlock language="tsx">{code}</CodeBlock>
+      <CodeBlock language="tsx">{children}</CodeBlock>
     </div>
   </>
 );
@@ -55,24 +54,15 @@ const ComponentPage = observer(() => {
       <div className="mx-auto w-full max-w-5xl px-4 py-6">
         <h1 className="my-4 text-center text-2xl font-semibold">{title}</h1>
 
-        <Example
-          title="HTML Editor"
-          code='<HTMLEditor defaultValue="Hello, HTML!" onChange={console.info} />'
-        >
+        <Example title="HTML Editor">
           <HTMLEditor defaultValue="Hello, HTML!" onChange={console.info} />
         </Example>
 
-        <Example
-          title="Block Editor"
-          code='<BlockEditor name="content" defaultValue={RichEditData} />'
-        >
+        <Example title="Block Editor">
           <BlockEditor name="content" defaultValue={RichEditData} />
         </Example>
 
-        <Example
-          title="Block Editor to HTML"
-          code="<EditorHTML data={RichEditData} />"
-        >
+        <Example title="Block Editor to HTML">
           <EditorHTML data={RichEditData} />
         </Example>
       </div>

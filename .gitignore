@@ -50,3 +50,5 @@ yarn-error.log*
 
 # UI
 ./components/ui/*
+# Shadcn UI components
+components/ui/

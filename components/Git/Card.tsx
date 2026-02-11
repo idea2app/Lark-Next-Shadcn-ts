@@ -80,8 +80,7 @@ export const GitCard: FC<GitCardProps> = observer(
           )}
         </CardContent>
 
-        <CardFooter className="justify-between">
-          <div />
+        <CardFooter className="justify-end">
           {homepage && (
             <Button variant="secondary" asChild>
               <a target="_blank" rel="noreferrer" href={homepage}>

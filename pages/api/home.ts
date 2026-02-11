@@ -66,6 +66,16 @@ export const framework = [
     ],
   },
   {
+    title: 'MobX RESTful Shadcn',
+    summary:
+      'A Pagination Table & Scroll List component suite for CRUD operation, based on MobX RESTful & Shadcn UI.',
+    logo: 'mobx.png',
+    link: 'https://github.com/idea2app/MobX-RESTful-Shadcn',
+    repository: 'https://github.com/idea2app/MobX-RESTful-Shadcn',
+    languages: ['TypeScript'],
+    tags: ['react', 'mobx', 'shadcn-ui', 'restful', 'table', 'scroll-list'],
+  },
+  {
     title: 'TypeScript',
     summary: 'TypeScript is JavaScript with syntax for types.',
     logo: 'typescript.png',

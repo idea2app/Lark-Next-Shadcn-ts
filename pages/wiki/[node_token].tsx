@@ -9,23 +9,14 @@ import wikiStore from '../../models/Wiki';
 import { lark } from '../api/Lark/core';
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  try {
-    await lark.getAccessToken();
+  await lark.getAccessToken();
 
-    const nodes = await wikiStore.getAll();
+  const nodes = await wikiStore.getAll();
 
-    return {
-      paths: nodes.map(({ node_token }) => ({ params: { node_token } })),
-      fallback: 'blocking',
-    };
-  } catch (error) {
-    console.error(error);
-
-    return {
-      paths: [],
-      fallback: 'blocking',
-    };
-  }
+  return {
+    paths: nodes.map(({ node_token }) => ({ params: { node_token } })),
+    fallback: 'blocking',
+  };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {

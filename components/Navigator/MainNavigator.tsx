@@ -18,47 +18,6 @@ export const MainNavigator: FC = observer(() => {
           {Name}
         </Link>
 
-        <nav className="hidden items-center gap-2 sm:flex">
-          <Link
-            href="/article"
-            className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-          >
-            {t('article')}
-          </Link>
-          <Link
-            href="/wiki"
-            className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-          >
-            {t('wiki')}
-          </Link>
-          <Link
-            href="/component"
-            className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-          >
-            {t('component')}
-          </Link>
-          <Link
-            href="/pagination"
-            className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-          >
-            {t('pagination')}
-          </Link>
-          <Link
-            href="/scroll-list"
-            className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-          >
-            {t('scroll_list')}
-          </Link>
-          <a
-            target="_blank"
-            rel="noreferrer"
-            href="https://github.com/idea2app/Lark-Next-Shadcn-ts"
-            className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-          >
-            {t('source_code')}
-          </a>
-        </nav>
-
         <div className="flex items-center gap-2">
           <LanguageMenu className="max-w-40" />
 
@@ -76,56 +35,49 @@ export const MainNavigator: FC = observer(() => {
         </div>
       </div>
 
-      {open && (
-        <div className="border-primary-foreground/20 border-t sm:hidden">
-          <div className="mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3">
-            <Link
-              href="/article"
-              className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-              onClick={() => setOpen(false)}
-            >
-              {t('article')}
-            </Link>
-            <Link
-              href="/wiki"
-              className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-              onClick={() => setOpen(false)}
-            >
-              {t('wiki')}
-            </Link>
-            <Link
-              href="/component"
-              className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-              onClick={() => setOpen(false)}
-            >
-              {t('component')}
-            </Link>
-            <Link
-              href="/pagination"
-              className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-              onClick={() => setOpen(false)}
-            >
-              {t('pagination')}
-            </Link>
-            <Link
-              href="/scroll-list"
-              className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-              onClick={() => setOpen(false)}
-            >
-              {t('scroll_list')}
-            </Link>
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://github.com/idea2app/Lark-Next-Shadcn-ts"
-              className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
-              onClick={() => setOpen(false)}
-            >
-              {t('source_code')}
-            </a>
-          </div>
-        </div>
-      )}
+      <nav
+        className={`mx-auto flex max-w-6xl flex-col gap-1 px-4 py-3 sm:flex-row sm:items-center sm:gap-2 sm:py-0 ${open ? '' : 'hidden sm:flex'}`}
+        onClick={() => setOpen(false)}
+      >
+        <Link
+          href="/article"
+          className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
+        >
+          {t('article')}
+        </Link>
+        <Link
+          href="/wiki"
+          className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
+        >
+          {t('wiki')}
+        </Link>
+        <Link
+          href="/component"
+          className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
+        >
+          {t('component')}
+        </Link>
+        <Link
+          href="/pagination"
+          className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
+        >
+          {t('pagination')}
+        </Link>
+        <Link
+          href="/scroll-list"
+          className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
+        >
+          {t('scroll_list')}
+        </Link>
+        <a
+          target="_blank"
+          rel="noreferrer"
+          href="https://github.com/idea2app/Lark-Next-Shadcn-ts"
+          className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
+        >
+          {t('source_code')}
+        </a>
+      </nav>
     </header>
   );
 });

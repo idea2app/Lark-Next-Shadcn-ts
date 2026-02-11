@@ -51,13 +51,13 @@ const ArticleIndexPage: FC<InferGetStaticPropsType<typeof getStaticProps>> =
 
     return (
       <MDXLayout title={`${t('article')} (${length})`}>
-        <div className="bg-muted/40 text-muted-foreground mb-6 rounded-md border px-4 py-3 text-sm">
+        <aside className="bg-muted/40 text-muted-foreground mb-6 rounded-md border px-4 py-3 text-sm">
           This page lists local{' '}
           <code className="bg-muted rounded px-1 py-0.5">.md/.mdx</code> files
           under{' '}
           <code className="bg-muted rounded px-1 py-0.5">pages/article</code>.
           Remove or replace those files to customize this section.
-        </div>
+        </aside>
         {renderTree(tree)}
       </MDXLayout>
     );
