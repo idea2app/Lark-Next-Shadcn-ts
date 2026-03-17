@@ -28,13 +28,11 @@ const Example: FC<PropsWithChildren<{ title: string }>> = ({
   title,
   children,
 }) => (
-  <>
-    <h2 className="mt-8 text-lg font-semibold">{title}</h2>
-    <div className="mt-3">{children}</div>
-    <div className="mt-3">
-      <CodeBlock language="tsx">{children}</CodeBlock>
-    </div>
-  </>
+  <div className="mt-8 flex flex-col gap-3">
+    <h2 className="text-lg font-semibold">{title}</h2>
+    {children}
+    <CodeBlock language="tsx">{children}</CodeBlock>
+  </div>
 );
 
 const ComponentPage = observer(() => {

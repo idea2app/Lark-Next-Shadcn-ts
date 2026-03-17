@@ -139,7 +139,7 @@
   },
   "scripts": {
     "prepare": "husky",
-    "install": "next typegen",
+    "install": "shadcn-helper install && next typegen",
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",

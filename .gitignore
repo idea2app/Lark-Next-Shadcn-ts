@@ -48,7 +48,5 @@ yarn-error.log*
 # IDE
 .vscode/settings.json
 
-# UI
-./components/ui/*
 # Shadcn UI components
 components/ui/

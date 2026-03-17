@@ -16,12 +16,15 @@ export interface LanguageMenuProps {
   className?: string;
 }
 
+type LanguageKey = keyof typeof LanguageName;
+
+const languageOptions = Object.entries(LanguageName) as [LanguageKey, string][];
+
 const LanguageMenu: FC<LanguageMenuProps> = observer(({ className }) => {
   const i18n = useContext(I18nContext);
+  const currentLanguage = i18n.currentLanguage as LanguageKey;
 
-  const currentLabel =
-    LanguageName[i18n.currentLanguage as keyof typeof LanguageName] ||
-    i18n.currentLanguage;
+  const currentLabel = LanguageName[currentLanguage] ?? i18n.currentLanguage;
 
   return (
     <DropdownMenu>
@@ -41,12 +44,10 @@ const LanguageMenu: FC<LanguageMenuProps> = observer(({ className }) => {
 
       <DropdownMenuContent align="end">
         <DropdownMenuRadioGroup
-          value={i18n.currentLanguage}
-          onValueChange={value =>
-            i18n.loadLanguages(value as typeof i18n.currentLanguage)
-          }
+          value={currentLanguage}
+          onValueChange={value => i18n.loadLanguages(value as LanguageKey)}
         >
-          {Object.entries(LanguageName).map(([key, name]) => (
+          {languageOptions.map(([key, name]) => (
             <DropdownMenuRadioItem key={key} value={key}>
               {name}
             </DropdownMenuRadioItem>
