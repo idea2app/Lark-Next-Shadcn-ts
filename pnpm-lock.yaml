@@ -295,8 +295,8 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0(prettier-plugin-css-order@2.2.0(postcss@8.5.12)(prettier@3.8.3))(prettier@3.8.3)
       shadcn-helper:
-        specifier: ^0.5.5
-        version: 0.5.5(typescript@5.9.3)
+        specifier: ^0.5.6
+        version: 0.5.6(typescript@5.9.3)
       tailwindcss:
         specifier: ^4.2.4
         version: 4.2.4
@@ -6337,8 +6337,8 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
-  shadcn-helper@0.5.5:
-    resolution: {integrity: sha512-GUiK4biscmMDQk6b7Muy+R4FLWRlVPwMf1nsyjoQNAGweAvytWM1VUreNsf1oAZ/ZVkxI6dcOuVcNJViGWgzsg==}
+  shadcn-helper@0.5.6:
+    resolution: {integrity: sha512-ctR7PNZ7ux6RQCzCYsi2U4fanU4tLTucxTeNDhmVemWAgYyv7evP2njiCqzbsoKxTzW/nFSWdVnHmNAUYptpuQ==}
     hasBin: true
 
   shallow-clone@3.0.1:
@@ -14058,7 +14058,7 @@ snapshots:
 
   setprototypeof@1.2.0: {}
 
-  shadcn-helper@0.5.5(typescript@5.9.3):
+  shadcn-helper@0.5.6(typescript@5.9.3):
     dependencies:
       '@tech_query/node-toolkit': 2.0.0-beta.3
       array-unique-proposal: 0.3.4
