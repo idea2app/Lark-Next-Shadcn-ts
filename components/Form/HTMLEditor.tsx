@@ -1,3 +1,6 @@
+import { Constructor } from 'web-utility';
+
+import { upload } from '../../models/Base';
 import {
   AudioTool,
   CopyMarkdownTool,
@@ -7,10 +10,7 @@ import {
   ImageTool,
   OriginalTools,
   VideoTool,
-} from 'react-bootstrap-editor';
-import { Constructor } from 'web-utility';
-
-import { upload } from '../../models/Base';
+} from '../ui/mobx-restful-shadcn/editor';
 
 const ExcludeTools = [IFrameTool, AudioTool, VideoTool];
 

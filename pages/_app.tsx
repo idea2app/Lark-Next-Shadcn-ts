@@ -1,11 +1,11 @@
-import '../styles/globals.less';
+import '../styles/globals.css';
 
 import { HTTPError } from 'koajax';
 import { configure } from 'mobx';
 import { enableStaticRendering, observer } from 'mobx-react';
 import App, { AppContext } from 'next/app';
 import Head from 'next/head';
-import { Image } from 'react-bootstrap';
+import Image from 'next/image';
 
 import { MDXLayout } from '../components/Layout/MDXLayout';
 import { MainNavigator } from '../components/Navigator/MainNavigator';
@@ -53,36 +53,38 @@ export default class CustomApp extends App<I18nProps> {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </Head>
 
-        <MainNavigator />
+        <div className="flex min-h-screen flex-col">
+          <MainNavigator />
 
-        {router.asPath.startsWith('/article/') ? (
-          <MDXLayout title={router.asPath.split('/').at(-1)}>
-            <Component {...pageProps} />
-          </MDXLayout>
-        ) : (
-          <div className="mt-5">
-            <Component {...pageProps} />
-          </div>
-        )}
+          <main className="flex-1 pt-16">
+            {router.asPath.startsWith('/article/') ? (
+              <MDXLayout title={router.asPath.split('/').at(-1)}>
+                <Component {...pageProps} />
+              </MDXLayout>
+            ) : (
+              <div>
+                <Component {...pageProps} />
+              </div>
+            )}
+          </main>
 
-        <footer className="flex-fill d-flex justify-content-center align-items-center border-top py-4">
-          <a
-            className="flex-fill d-flex justify-content-center align-items-center"
-            href="https://vercel.com?utm_source=create-next-app&amp;utm_medium=default-template&amp;utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {t('powered_by')}
-            <span className="mx-2">
+          <footer className="border-t py-6">
+            <a
+              className="text-muted-foreground mx-auto flex max-w-6xl items-center justify-center gap-2 px-4 text-sm"
+              href="https://vercel.com?utm_source=create-next-app&amp;utm_medium=default-template&amp;utm_campaign=create-next-app"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t('powered_by')}
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
                 width={72}
                 height={16}
               />
-            </span>
-          </a>
-        </footer>
+            </a>
+          </footer>
+        </div>
       </I18nContext.Provider>
     );
   }

@@ -6,6 +6,7 @@ import List from '@editorjs/list';
 import Quote from '@editorjs/quote';
 import { Editor as Core, EditorProps } from 'idea-react';
 
+import { cn } from '../../lib/utils';
 import { upload } from '../../models/Base';
 
 async function uploadByFile(file: File) {
@@ -32,6 +33,19 @@ const Tools = {
   quote: Quote,
 };
 
-export default function Editor(props: Omit<EditorProps, 'tools'>) {
-  return <Core tools={Tools} {...props} />;
+export interface BlockEditorProps extends Omit<EditorProps, 'tools'> {
+  className?: string;
+}
+
+export default function Editor({ className, ...props }: BlockEditorProps) {
+  return (
+    <div
+      className={cn(
+        'border-input bg-background min-h-64 overflow-hidden rounded-lg border p-4 shadow-sm',
+        className,
+      )}
+    >
+      <Core tools={Tools} {...props} />
+    </div>
+  );
 }

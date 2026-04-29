@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import { textJoin } from 'mobx-i18n';
 import { observer } from 'mobx-react';
 import { FC, PropsWithChildren, useContext } from 'react';
-import { Container } from 'react-bootstrap';
 import { CodeBlock, EditorHTML } from 'idea-react';
 
 import 'prismjs/components/prism-javascript';
@@ -29,11 +28,11 @@ const Example: FC<PropsWithChildren<{ title: string }>> = ({
   title,
   children,
 }) => (
-  <>
-    <h2 className="mt-3">{title}</h2>
+  <div className="mt-8 flex flex-col gap-3">
+    <h2 className="text-lg font-semibold">{title}</h2>
     {children}
     <CodeBlock language="tsx">{children}</CodeBlock>
-  </>
+  </div>
 );
 
 const ComponentPage = observer(() => {
@@ -50,8 +49,8 @@ const ComponentPage = observer(() => {
         />
       </PageHead>
 
-      <Container>
-        <h1 className="my-4 text-center">{title}</h1>
+      <div className="mx-auto w-full max-w-5xl px-4 py-6">
+        <h1 className="my-4 text-center text-2xl font-semibold">{title}</h1>
 
         <Example title="HTML Editor">
           <HTMLEditor defaultValue="Hello, HTML!" onChange={console.info} />
@@ -64,7 +63,7 @@ const ComponentPage = observer(() => {
         <Example title="Block Editor to HTML">
           <EditorHTML data={RichEditData} />
         </Example>
-      </Container>
+      </div>
     </>
   );
 });

@@ -17,7 +17,7 @@ export const NotFoundCard: FC<ErrorProps> = observer(({ title }) => {
     />
   ) : (
     <iframe
-      className="w-100 vh-100 border-0"
+      className="h-screen w-full border-0"
       src="https://notfound-static.fwebservices.be/en/404?key=66abb751ed312"
     />
   );

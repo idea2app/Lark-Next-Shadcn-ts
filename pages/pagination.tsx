@@ -2,10 +2,13 @@ import { computed } from 'mobx';
 import { GitRepository } from 'mobx-github';
 import { observer } from 'mobx-react';
 import { ObservedComponent } from 'mobx-react-helper';
-import { BadgeBar, Column, RestTable } from 'mobx-restful-table';
-import { Container } from 'react-bootstrap';
 
 import { PageHead } from '../components/Layout/PageHead';
+import { BadgeBar } from '../components/ui/mobx-restful-shadcn/badge-bar';
+import {
+  Column,
+  RestTable,
+} from '../components/ui/mobx-restful-shadcn/rest-table';
 import { repositoryStore } from '../models/Base';
 import { i18n, I18nContext } from '../models/Translation';
 
@@ -53,13 +56,14 @@ export default class PaginationPage extends ObservedComponent<{}, typeof i18n> {
     const i18n = this.observedContext;
 
     return (
-      <Container style={{ height: '91vh' }}>
+      <div
+        className="mx-auto w-full max-w-6xl px-4 py-6"
+        style={{ height: '91vh' }}
+      >
         <PageHead title={i18n.t('pagination')} />
 
         <RestTable
-          className="h-100 text-center"
-          striped
-          hover
+          className="flex h-full flex-col gap-3 overflow-auto text-center"
           editable
           deletable
           columns={this.columns}
@@ -67,7 +71,7 @@ export default class PaginationPage extends ObservedComponent<{}, typeof i18n> {
           translator={i18n}
           onCheck={console.info}
         />
-      </Container>
+      </div>
     );
   }
 }

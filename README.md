@@ -1,6 +1,6 @@
 # lark-next-shadcn-ts
 
-[Lark][0] project scaffold based on [TypeScript][2], [React][1], [Next.js][3], [Bootstrap][4] & [Workbox][5]. And this project bootstrapped with [`create-next-app`][6].
+[Lark][0] project scaffold based on [TypeScript][2], [React][1], [Next.js][3], [Shadcn][4] & [Workbox][5]. And this project bootstrapped with [`create-next-app`][6].
 
 [![CI & CD](https://github.com/idea2app/lark-next-shadcn-ts/actions/workflows/main.yml/badge.svg)][7]
 
@@ -11,7 +11,7 @@
 
 - Language: [TypeScript v5][2] + [MDX v3][10]
 - Component engine: [Next.js v16][3]
-- Component suite: [Bootstrap v5][4]
+- Component suite: [Shadcn][4]
 - PWA framework: [Workbox v6][5]
 - State management: [MobX v6][11]
 - API router: [Koa v3][12]
@@ -120,7 +120,7 @@ pnpm container
 [1]: https://react.dev/
 [2]: https://www.typescriptlang.org/
 [3]: https://nextjs.org/
-[4]: https://getbootstrap.com/
+[4]: https://ui.shadcn.com/
 [5]: https://developers.google.com/web/tools/workbox
 [6]: https://github.com/vercel/next.js/tree/canary/packages/create-next-app
 [7]: https://github.com/idea2app/lark-next-shadcn-ts/actions/workflows/main.yml
