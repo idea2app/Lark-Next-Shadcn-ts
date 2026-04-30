@@ -11,7 +11,7 @@ const HTMLEditor = dynamic(() => import('../components/Form/HTMLEditor'), {
 });
 HTMLEditor.displayName = 'HTMLEditor';
 
-const ComponentPage = observer(() => {
+const EditorPage = observer(() => {
   const { t } = useContext(I18nContext);
 
   const title = `HTML ${t('editor')}`;
@@ -25,4 +25,4 @@ const ComponentPage = observer(() => {
     </div>
   );
 });
-export default ComponentPage;
+export default EditorPage;

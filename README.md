@@ -22,7 +22,7 @@
 
 1. [Markdown articles](pages/article/)
 2. [Lark wiki](pages/wiki/)
-3. [Editor components](pages/component.tsx)
+3. [Editor components](pages/editor.tsx)
 4. [Pagination table](pages/pagination.tsx)
 5. [Scroll list](pages/scroll-list.tsx)
 6. [Not Found page (NGO)](pages/_error.tsx)

@@ -52,7 +52,7 @@ export const MainNavigator: FC = observer(() => {
           {t('wiki')}
         </Link>
         <Link
-          href="/component"
+          href="/editor"
           className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
         >
           {t('editor')}
