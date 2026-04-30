@@ -6,7 +6,7 @@ export default {
   upstream_projects: '上游專案',
   home_page: '主頁',
   source_code: '源代碼',
-  component: '元件',
+  editor: '編輯器',
   pagination: '分頁',
   powered_by: '強力驅動自',
   documentation: '文檔',

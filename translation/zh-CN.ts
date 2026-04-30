@@ -6,7 +6,7 @@ export default {
   upstream_projects: '上游项目',
   home_page: '主页',
   source_code: '源代码',
-  component: '组件',
+  editor: '编辑器',
   pagination: '分页',
   powered_by: '强力驱动自',
   documentation: '文档',

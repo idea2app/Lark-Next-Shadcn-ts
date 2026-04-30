@@ -6,7 +6,7 @@ export default {
   upstream_projects: 'Upstream projects',
   home_page: 'Home Page',
   source_code: 'Source Code',
-  component: 'Component',
+  editor: 'Editor',
   pagination: 'Pagination',
   powered_by: 'Powered by',
   documentation: 'Documentation',

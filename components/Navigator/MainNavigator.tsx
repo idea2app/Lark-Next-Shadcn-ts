@@ -55,7 +55,7 @@ export const MainNavigator: FC = observer(() => {
           href="/component"
           className="hover:bg-primary-foreground/10 rounded-md px-3 py-2 text-sm"
         >
-          {t('component')}
+          {t('editor')}
         </Link>
         <Link
           href="/pagination"
