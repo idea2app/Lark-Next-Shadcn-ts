@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  next: ^16.2.10
+  next: 16.2.10
 
 patchedDependencies:
   next@16.2.10:
@@ -104,7 +104,7 @@ importers:
         specifier: ^2.1.4
         version: 2.1.4(core-js@3.49.0)(mobx@6.16.1)(typescript@5.9.3)
       next:
-        specifier: ^16.2.10
+        specifier: 16.2.10
         version: 16.2.10(patch_hash=071949ff100fb65adc79812f8a1a6877d776d1ec59f55495514a735644395d36)(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
       next-pwa:
         specifier: ~5.6.0
@@ -2409,7 +2409,7 @@ packages:
     resolution: {integrity: sha512-SN3tBm+wpDmr4GONaxuIRjQglAiPBKF7JEsQlli1HNfar1JG+fRsxWy0/aKcn9Kp/XX1kOpFgW9tcfuE4UKm7Q==}
     engines: {node: '>=18'}
     peerDependencies:
-      next: ^16.2.10
+      next: 16.2.10
 
   '@sentry/node-core@10.63.0':
     resolution: {integrity: sha512-TaNtkGDRNxH3SjOea2PDtaebkNjMbAH8ZFsEcwlqmadpS7nqSR7z6slZy/iu7y1nLiUdbmcM5JmXwxksy52WRQ==}
@@ -5040,12 +5040,12 @@ packages:
   next-pwa@5.6.0:
     resolution: {integrity: sha512-XV8g8C6B7UmViXU8askMEYhWwQ4qc/XqJGnexbLV68hzKaGHZDMtHsm2TNxFcbR7+ypVuth/wwpiIlMwpRJJ5A==}
     peerDependencies:
-      next: ^16.2.10
+      next: 16.2.10
 
   next-ssr-middleware@1.1.0:
     resolution: {integrity: sha512-eYKTZExd+4yq4Cs2lrQ+XJlgegKAgmCvigy9Ro3ScaHjUNevyXovHO/bbdTYIvr4DtYDbZPJkw4VbYAaVZ5x7w==}
     peerDependencies:
-      next: ^16.2.10
+      next: 16.2.10
       react: '>=18'
 
   next-with-less@3.0.1:
@@ -5053,7 +5053,7 @@ packages:
     peerDependencies:
       less: '*'
       less-loader: '>= 7.0.0'
-      next: ^16.2.10
+      next: 16.2.10
 
   next@16.2.10:
     resolution: {integrity: sha512-2som5AVXb3kE6Yjine3/mNbBayYF58eguBWIVVUdr1y/L426xyVEgYxgBG+1QC34P2x5E+tcDup6XkuOAX3dCA==}
