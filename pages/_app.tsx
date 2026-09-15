@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '@khmyznikov/pwa-install';
 
 import { SerwistProvider } from '@serwist/next/react';
 import { HTTPError } from 'koajax';
@@ -7,11 +8,16 @@ import { enableStaticRendering, observer } from 'mobx-react';
 import App, { AppContext } from 'next/app';
 import Head from 'next/head';
 import Image from 'next/image';
+import { createElement } from 'react';
 
 import { MDXLayout } from '../components/Layout/MDXLayout';
 import { MainNavigator } from '../components/Navigator/MainNavigator';
-import { PWAInstall } from '../components/PWA/Install';
-import { isServer } from '../models/configuration';
+import {
+  DefaultImage,
+  isServer,
+  Name,
+  Summary,
+} from '../models/configuration';
 import {
   createI18nStore,
   I18nContext,
@@ -95,7 +101,12 @@ export default class CustomApp extends App<I18nProps> {
             </footer>
           </div>
 
-          <PWAInstall />
+          {createElement('pwa-install', {
+            icon: DefaultImage,
+            name: Name,
+            description: Summary,
+            'install-description': Summary,
+          })}
         </I18nContext.Provider>
       </SerwistProvider>
     );

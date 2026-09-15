@@ -2,9 +2,9 @@ import { spawnSync } from 'node:child_process';
 
 import NextMDX from '@next/mdx';
 import { withSentryConfig } from '@sentry/nextjs';
+import withSerwistInit from '@serwist/next';
 import CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync, statSync } from 'fs';
-import withSerwistInit from '@serwist/next';
 // @ts-expect-error no official types
 import withLess from 'next-with-less';
 import RemarkFrontMatter from 'remark-frontmatter';
@@ -20,6 +20,8 @@ const { stdout, stderr } = spawnSync('git', ['rev-parse', 'HEAD'], {
 });
 const gitRevision = stdout?.trim();
 const { GITHUB_SHA, VERCEL_GIT_COMMIT_SHA } = process.env;
+const revision =
+  gitRevision || VERCEL_GIT_COMMIT_SHA || GITHUB_SHA || crypto.randomUUID();
 
 if (!gitRevision)
   console.warn(
@@ -42,11 +44,7 @@ const withSerwist = withSerwistInit({
   additionalPrecacheEntries: [
     {
       url: '/',
-      revision:
-        gitRevision ||
-        VERCEL_GIT_COMMIT_SHA ||
-        GITHUB_SHA ||
-        crypto.randomUUID(),
+      revision,
     },
   ],
 });
@@ -81,6 +79,7 @@ const nextConfig = withSerwist(
               ],
             }),
           );
+
         return config;
       },
       rewrites: async () => ({
