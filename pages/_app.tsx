@@ -56,7 +56,10 @@ export default class CustomApp extends App<I18nProps> {
       >
         <I18nContext.Provider value={this.i18nStore}>
           <Head>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
           </Head>
 
           <div className="flex min-h-screen flex-col">

@@ -43,7 +43,10 @@ const withSerwist = withSerwistInit({
     {
       url: '/',
       revision:
-        gitRevision || VERCEL_GIT_COMMIT_SHA || GITHUB_SHA || crypto.randomUUID(),
+        gitRevision ||
+        VERCEL_GIT_COMMIT_SHA ||
+        GITHUB_SHA ||
+        crypto.randomUUID(),
     },
   ],
 });
