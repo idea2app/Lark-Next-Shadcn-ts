@@ -8,7 +8,6 @@ import { enableStaticRendering, observer } from 'mobx-react';
 import App, { AppContext } from 'next/app';
 import Head from 'next/head';
 import Image from 'next/image';
-import { createElement } from 'react';
 
 import { MDXLayout } from '../components/Layout/MDXLayout';
 import { MainNavigator } from '../components/Navigator/MainNavigator';
@@ -101,12 +100,12 @@ export default class CustomApp extends App<I18nProps> {
             </footer>
           </div>
 
-          {createElement('pwa-install', {
-            icon: DefaultImage,
-            name: Name,
-            description: Summary,
-            'install-description': Summary,
-          })}
+          <pwa-install
+            icon={DefaultImage}
+            name={Name}
+            description={Summary}
+            install-description={Summary}
+          />
         </I18nContext.Provider>
       </SerwistProvider>
     );
