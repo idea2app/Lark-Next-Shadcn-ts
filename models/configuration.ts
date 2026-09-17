@@ -1,5 +1,7 @@
 export const isServer = () => typeof window === 'undefined';
 
+export const isDev = process.env.NODE_ENV === 'development';
+
 export const Name = process.env.NEXT_PUBLIC_SITE_NAME,
   Summary = process.env.NEXT_PUBLIC_SITE_SUMMARY,
   DefaultImage = process.env.NEXT_PUBLIC_LOGO!;

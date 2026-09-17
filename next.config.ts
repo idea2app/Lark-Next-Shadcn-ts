@@ -1,8 +1,10 @@
+import { spawnSync } from 'node:child_process';
+
 import NextMDX from '@next/mdx';
 import { withSentryConfig } from '@sentry/nextjs';
+import withSerwistInit from '@serwist/next';
 import CopyPlugin from 'copy-webpack-plugin';
 import { readdirSync, statSync } from 'fs';
-import setPWA from 'next-pwa';
 // @ts-expect-error no official types
 import withLess from 'next-with-less';
 import RemarkFrontMatter from 'remark-frontmatter';
@@ -13,6 +15,20 @@ import webpack from 'webpack';
 const { NODE_ENV, CI, SENTRY_AUTH_TOKEN, SENTRY_ORG, SENTRY_PROJECT } =
   process.env;
 const isDev = NODE_ENV === 'development';
+const { stdout, stderr } = spawnSync('git', ['rev-parse', 'HEAD'], {
+  encoding: 'utf8',
+});
+const gitRevision = stdout?.trim();
+const { GITHUB_SHA, VERCEL_GIT_COMMIT_SHA } = process.env;
+const revision =
+  gitRevision || VERCEL_GIT_COMMIT_SHA || GITHUB_SHA || crypto.randomUUID();
+
+if (!gitRevision)
+  console.warn(
+    `Falling back to random UUID for Serwist revision: ${
+      stderr?.trim() || 'Git revision is unavailable'
+    }`,
+  );
 
 const withMDX = NextMDX({
   extension: /\.mdx?$/,
@@ -21,14 +37,14 @@ const withMDX = NextMDX({
   },
 });
 
-const withPWA = setPWA({
-  dest: 'public',
-  register: true,
-  skipWaiting: true,
+const withSerwist = withSerwistInit({
+  swSrc: 'service-worker.ts',
+  swDest: 'public/sw.js',
   disable: isDev,
+  additionalPrecacheEntries: [{ url: '/', revision }],
 });
 
-const nextConfig = withPWA(
+const nextConfig = withSerwist(
   withLess(
     withMDX({
       output: CI ? 'standalone' : undefined,
@@ -58,6 +74,7 @@ const nextConfig = withPWA(
               ],
             }),
           );
+
         return config;
       },
       rewrites: async () => ({
