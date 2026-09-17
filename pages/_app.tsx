@@ -11,12 +11,7 @@ import Image from 'next/image';
 
 import { MDXLayout } from '../components/Layout/MDXLayout';
 import { MainNavigator } from '../components/Navigator/MainNavigator';
-import {
-  DefaultImage,
-  isServer,
-  Name,
-  Summary,
-} from '../models/configuration';
+import { isDev, isServer, Summary } from '../models/configuration';
 import {
   createI18nStore,
   I18nContext,
@@ -55,10 +50,7 @@ export default class CustomApp extends App<I18nProps> {
       { t } = this.i18nStore;
 
     return (
-      <SerwistProvider
-        swUrl="/sw.js"
-        disable={process.env.NODE_ENV !== 'production'}
-      >
+      <SerwistProvider swUrl="/sw.js" disable={isDev}>
         <I18nContext.Provider value={this.i18nStore}>
           <Head>
             <meta
@@ -100,12 +92,7 @@ export default class CustomApp extends App<I18nProps> {
             </footer>
           </div>
 
-          <pwa-install
-            icon={DefaultImage}
-            name={Name}
-            description={Summary}
-            install-description={Summary}
-          />
+          <pwa-install description={Summary} />
         </I18nContext.Provider>
       </SerwistProvider>
     );

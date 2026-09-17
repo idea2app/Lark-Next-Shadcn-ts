@@ -41,12 +41,7 @@ const withSerwist = withSerwistInit({
   swSrc: 'service-worker.ts',
   swDest: 'public/sw.js',
   disable: isDev,
-  additionalPrecacheEntries: [
-    {
-      url: '/',
-      revision,
-    },
-  ],
+  additionalPrecacheEntries: [{ url: '/', revision }],
 });
 
 const nextConfig = withSerwist(
