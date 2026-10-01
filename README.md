@@ -77,6 +77,8 @@ To learn more about Next.js, take a look at the following resources:
 
 You can check out [the Next.js GitHub repository][28] - your feedback and contributions are welcome!
 
+For migration notes and vinext-specific compatibility checks, see [ViNext-migration.md](public/ViNext-migration.md).
+
 ## Deployment
 
 ### Environment variables
@@ -106,6 +108,25 @@ Check out our [Next.js deployment documentation][34] for more details.
 pnpm pack-image
 pnpm container
 ```
+
+### Cloudflare Workers with vinext
+
+This project uses vinext's typed Cloudflare Workers integration and Workers Cache adapter. The adapter is required by vinext 1.0's Pages Router deployment check because it treats any `getStaticProps` page as ISR; see [issue #3582](https://github.com/cloudflare/vinext/issues/3582). Review which pages may be cached before deploying, especially if they contain user-specific data.
+
+Authenticate locally with `pnpm exec cf auth login`. In CI, configure `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` as secrets. Worker environment variables and secrets used by the app must also be configured in Cloudflare; do not commit secret values.
+
+```sh
+pnpm run dev:vinext
+pnpm run build:vinext
+pnpm run start:vinext
+pnpm run typegen:cloudflare
+pnpm run deploy:vinext:dry-run
+pnpm run deploy:vinext
+```
+
+The dry-run validates deployment setup without building or publishing. `deploy:vinext` builds and publishes to production; add `-- --preview` to deploy a preview version. The typed Worker configuration is in `cloudflare.config.ts`, and the Vite integration plus cache adapter are in `vite.config.ts`.
+
+The Worker enables `nodejs_compat`, but Node APIs are not all fully available in Workers. Smoke-test API routes that depend on filesystem, streams, or multipart parsing against the local Worker preview before production deployment.
 
 ### CDN
 
