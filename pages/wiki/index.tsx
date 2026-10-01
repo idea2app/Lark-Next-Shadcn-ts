@@ -1,21 +1,26 @@
 import { WikiNode } from 'mobx-lark';
 import { observer } from 'mobx-react';
+import { wrapGetStaticPropsWithSentry } from '@sentry/nextjs';
 import { GetStaticProps } from 'next';
 import { FC, useContext } from 'react';
 import { treeFrom } from 'web-utility';
 
 import { PageHead } from '../../components/Layout/PageHead';
+import { sentryRouteOf } from '../../lib/Sentry';
 import { I18nContext } from '../../models/Translation';
 import wikiStore from '../../models/Wiki';
 import { lark } from '../api/Lark/core';
 
-export const getStaticProps: GetStaticProps = async () => {
-  await lark.getAccessToken();
+export const getStaticProps: GetStaticProps = wrapGetStaticPropsWithSentry(
+  async () => {
+    await lark.getAccessToken();
 
-  const nodes = await wikiStore.getAll();
+    const nodes = await wikiStore.getAll();
 
-  return { props: { nodes } };
-};
+    return { props: { nodes } };
+  },
+  sentryRouteOf(import.meta.url),
+);
 
 interface XWikiNode extends WikiNode {
   // eslint-disable-next-line no-restricted-syntax

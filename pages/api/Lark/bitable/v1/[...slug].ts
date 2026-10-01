@@ -1,9 +1,9 @@
 import { Context } from 'koa';
 import { LarkPageData, TableRecord, TableRecordData } from 'mobx-lark';
 import { DataObject } from 'mobx-restful';
-import { createKoaRouter, withKoaRouter } from 'next-ssr-middleware';
+import { createKoaRouter } from 'next-ssr-middleware';
 
-import { safeAPI } from '../../../core';
+import { safeAPI, withVinextKoaRouter } from '../../../core';
 import { proxyLark, proxyLarkAll } from '../../core';
 
 export const config = { api: { bodyParser: false } };
@@ -47,6 +47,6 @@ router.get(
   },
 );
 
-router.all('/(.*)', safeAPI, proxyLarkAll);
+router.all('/{*path}', safeAPI, proxyLarkAll);
 
-export default withKoaRouter(router);
+export default withVinextKoaRouter(import.meta.url, router);

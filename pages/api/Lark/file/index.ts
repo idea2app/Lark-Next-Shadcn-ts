@@ -3,11 +3,11 @@ import formidable from 'formidable';
 import { readFile } from 'fs/promises';
 import MIME from 'mime';
 import { UploadTargetType } from 'mobx-lark';
-import { createKoaRouter, withKoaRouter } from 'next-ssr-middleware';
+import { createKoaRouter } from 'next-ssr-middleware';
 import { parse } from 'path';
 
 import { LARK_API_HOST } from '../../../../models/configuration';
-import { safeAPI } from '../../core';
+import { safeAPI, withVinextKoaRouter } from '../../core';
 import { lark } from '../core';
 
 export const config = { api: { bodyParser: false } };
@@ -45,4 +45,4 @@ router.post('/', safeAPI, async context => {
   return (context.body = { link });
 });
 
-export default withKoaRouter(router);
+export default withVinextKoaRouter(import.meta.url, router);

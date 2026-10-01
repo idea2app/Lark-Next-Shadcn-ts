@@ -4,10 +4,9 @@ autoInstallPeers: false
 minimumReleaseAge: 0
 overrides:
   next: '$next'
-patchedDependencies:
-  'next@16.3.5': patches/next@16.3.5.patch
 allowBuilds:
   '@sentry/cli': true
+  '@swc/core': true
   core-js: true
   sharp: true
   unrs-resolver: true

@@ -5,6 +5,7 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document';
+import { wrapDocumentGetInitialPropsWithSentry } from '@sentry/nextjs';
 
 import { LanguageCode, parseSSRContext } from '../models/Translation';
 
@@ -14,12 +15,14 @@ interface CustomDocumentProps {
 }
 
 export default class CustomDocument extends Document<CustomDocumentProps> {
-  static async getInitialProps(context: DocumentContext) {
+  static getInitialProps = wrapDocumentGetInitialPropsWithSentry(
+    async (context: DocumentContext) => {
     return {
       ...(await Document.getInitialProps(context)),
       ...parseSSRContext<CustomDocumentProps>(context, ['language']),
     };
-  }
+    },
+  );
 
   render() {
     const { language, colorScheme } = this.props;

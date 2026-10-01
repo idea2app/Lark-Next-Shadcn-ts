@@ -1,17 +1,22 @@
 import { observer } from 'mobx-react';
+import { wrapGetStaticPropsWithSentry } from '@sentry/nextjs';
 import { InferGetStaticPropsType } from 'next';
 import { FC, useContext } from 'react';
 
 import { MDXLayout } from '../../components/Layout/MDXLayout';
+import { sentryRouteOf } from '../../lib/Sentry';
 import { I18nContext } from '../../models/Translation';
 import { ArticleMeta, pageListOf, traverseTree } from '../api/core';
 
-export const getStaticProps = async () => {
-  const tree = await Array.fromAsync(pageListOf('/article'));
-  const list = tree.map(root => [...traverseTree(root, 'subs')]).flat();
+export const getStaticProps = wrapGetStaticPropsWithSentry(
+  async () => {
+    const tree = await Array.fromAsync(pageListOf('/article'));
+    const list = tree.map(root => [...traverseTree(root, 'subs')]).flat();
 
-  return { props: { tree, list } };
-};
+    return { props: { tree, list } };
+  },
+  sentryRouteOf(import.meta.url),
+);
 
 const renderTree = (list: ArticleMeta[]) => (
   <ol className="space-y-2">

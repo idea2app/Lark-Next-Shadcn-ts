@@ -13,6 +13,10 @@ next-env.d.ts
 /.next/
 /out/
 
+# ViNext
+/.vinext
+/dist
+
 # PWA
 public/sw.js
 public/sw.js.map

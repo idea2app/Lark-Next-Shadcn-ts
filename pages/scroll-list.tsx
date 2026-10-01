@@ -1,19 +1,24 @@
 import { GitRepository, RepositoryModel } from 'mobx-github';
 import { observer } from 'mobx-react';
+import { wrapGetServerSidePropsWithSentry } from '@sentry/nextjs';
 import { cache, compose, errorLogger } from 'next-ssr-middleware';
 import { FC, useContext } from 'react';
 
 import { GitCard } from '../components/Git/Card';
 import { PageHead } from '../components/Layout/PageHead';
 import { ScrollList } from '../components/ui/mobx-restful-shadcn/scroll-list';
+import { sentryRouteOf } from '../lib/Sentry';
 import { repositoryStore } from '../models/Base';
 import { I18nContext } from '../models/Translation';
 
-export const getServerSideProps = compose(errorLogger, cache(), async () => {
-  const list = await new RepositoryModel('idea2app').getList();
+export const getServerSideProps = wrapGetServerSidePropsWithSentry(
+  compose(errorLogger, cache(), async () => {
+    const list = await new RepositoryModel('idea2app').getList();
 
-  return { props: JSON.parse(JSON.stringify({ list })) };
-});
+    return { props: JSON.parse(JSON.stringify({ list })) };
+  }),
+  sentryRouteOf(import.meta.url),
+);
 
 const ScrollListPage: FC<{ list: GitRepository[] }> = observer(({ list }) => {
   const i18n = useContext(I18nContext);
