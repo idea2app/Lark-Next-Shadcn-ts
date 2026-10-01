@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { createKoaRouter, withKoaRouter } from 'next-ssr-middleware';
+import { createKoaRouter } from 'next-ssr-middleware';
 
-import { safeAPI } from './core';
+import { safeAPI, withVinextKoaRouter } from './core';
 
 const router = createKoaRouter(import.meta.url);
 
@@ -10,4 +10,4 @@ router.get('/', safeAPI, async context => {
   context.body = { name: 'John Doe' };
 });
 
-export default withKoaRouter(router);
+export default withVinextKoaRouter(import.meta.url, router);

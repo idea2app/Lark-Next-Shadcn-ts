@@ -1,5 +1,6 @@
 import { observer } from 'mobx-react';
 import Link from 'next/link';
+import { wrapGetServerSidePropsWithSentry } from '@sentry/nextjs';
 import {
   cache,
   compose,
@@ -14,35 +15,36 @@ import { CardPage, CardPageProps } from '../../../components/Layout/CardPage';
 import { PageHead } from '../../../components/Layout/PageHead';
 import { SearchBar } from '../../../components/Navigator/SearchBar';
 import { cn } from '../../../lib/utils';
+import { sentryRouteOf } from '../../../lib/Sentry';
 import systemStore, { SearchPageMeta } from '../../../models/System';
 import { I18nContext } from '../../../models/Translation';
 
 type SearchModelPageProps = RouteProps<{ model: string }> & SearchPageMeta;
 
-export const getServerSideProps = compose<
-  { model: string },
-  SearchModelPageProps
->(
-  cache(),
-  router,
-  errorLogger,
-  async ({ params, query: { keywords = '', page = '1' } }) => {
-    const Model = systemStore.searchMap[params!.model];
+export const getServerSideProps = wrapGetServerSidePropsWithSentry(
+  compose<{ model: string }, SearchModelPageProps>(
+    cache(),
+    router,
+    errorLogger,
+    async ({ params, query: { keywords = '', page = '1' } }) => {
+      const Model = systemStore.searchMap[params!.model];
 
-    if (typeof Model !== 'function') return { notFound: true, props: {} };
+      if (typeof Model !== 'function') return { notFound: true, props: {} };
 
-    const store = new Model();
+      const store = new Model();
 
-    await store.getSearchList(keywords + '', +page, 9);
+      await store.getSearchList(keywords + '', +page, 9);
 
-    const { pageIndex, currentPage, pageCount } = store;
+      const { pageIndex, currentPage, pageCount } = store;
 
-    return {
-      props: JSON.parse(
-        JSON.stringify({ pageIndex, currentPage, pageCount }),
-      ) as SearchModelPageProps,
-    };
-  },
+      return {
+        props: JSON.parse(
+          JSON.stringify({ pageIndex, currentPage, pageCount }),
+        ) as SearchModelPageProps,
+      };
+    },
+  ),
+  sentryRouteOf(import.meta.url),
 );
 
 const SearchNameMap: () => Record<string, string> = () => ({});

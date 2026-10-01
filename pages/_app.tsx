@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import '@khmyznikov/pwa-install';
 
 import { SerwistProvider } from '@serwist/next/react';
+import { wrapAppGetInitialPropsWithSentry } from '@sentry/nextjs';
 import { HTTPError } from 'koajax';
 import { configure } from 'mobx';
 import { enableStaticRendering, observer } from 'mobx-react';
@@ -25,12 +26,14 @@ enableStaticRendering(isServer());
 
 @observer
 export default class CustomApp extends App<I18nProps> {
-  static async getInitialProps(context: AppContext) {
+  static getInitialProps = wrapAppGetInitialPropsWithSentry(
+    async (context: AppContext) => {
     return {
       ...(await App.getInitialProps(context)),
       ...(await loadSSRLanguage(context.ctx)),
     };
-  }
+    },
+  );
 
   i18nStore = createI18nStore(this.props.language, this.props.languageMap);
 

@@ -1,11 +1,11 @@
 import { fileTypeFromStream } from 'file-type';
 import { Middleware } from 'koa';
 import MIME from 'mime';
-import { createKoaRouter, withKoaRouter } from 'next-ssr-middleware';
+import { createKoaRouter } from 'next-ssr-middleware';
 import { Readable } from 'stream';
 
 import { CACHE_HOST } from '../../../../../models/configuration';
-import { safeAPI } from '../../../core';
+import { safeAPI, withVinextKoaRouter } from '../../../core';
 import { lark } from '../../core';
 
 const router = createKoaRouter(import.meta.url);
@@ -55,4 +55,4 @@ router
   .head('/:id/:name', safeAPI, downloader)
   .get('/:id/:name', safeAPI, downloader);
 
-export default withKoaRouter(router);
+export default withVinextKoaRouter(import.meta.url, router);

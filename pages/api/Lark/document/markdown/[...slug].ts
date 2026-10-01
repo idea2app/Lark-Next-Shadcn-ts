@@ -1,6 +1,6 @@
-import { createKoaRouter, withKoaRouter } from 'next-ssr-middleware';
+import { createKoaRouter } from 'next-ssr-middleware';
 
-import { safeAPI } from '../../../core';
+import {safeAPI, withVinextKoaRouter } from '../../../core';
 import { lark } from '../../core';
 
 const router = createKoaRouter(import.meta.url);
@@ -14,4 +14,4 @@ router.get('/:type/:id', safeAPI, async context => {
   context.body = markdown;
 });
 
-export default withKoaRouter(router);
+export default withVinextKoaRouter(import.meta.url, router);

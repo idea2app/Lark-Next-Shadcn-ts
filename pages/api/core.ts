@@ -1,14 +1,22 @@
 import 'core-js/full/array/from-async';
 
-import { JsonWebTokenError, sign } from 'jsonwebtoken';
+import { JsonWebTokenError } from 'jsonwebtoken';
 import { Context, Middleware, ParameterizedContext } from 'koa';
+import { RouterContext, RouterInstance } from '@koa/router';
+import { captureException, wrapApiHandlerWithSentry } from '@sentry/nextjs';
+import { IncomingMessage, ServerResponse } from 'http';
 import JWT from 'koa-jwt';
 import { HTTPError } from 'koajax';
 import { DataObject } from 'mobx-restful';
-import { KoaOption, withKoa } from 'next-ssr-middleware';
+import {
+  KoaOption,
+  withKoa,
+  withKoaRouter,
+} from 'next-ssr-middleware';
 import { ProxyAgent, setGlobalDispatcher } from 'undici';
 import { parse } from 'yaml';
 
+import { sentryRouteOf } from '../../lib/Sentry';
 import { JWT_SECRET } from '../../models/configuration';
 
 const { HTTP_PROXY } = process.env;
@@ -31,6 +39,7 @@ export const safeAPI: Middleware<any, any> = async (context: Context, next) => {
   } catch (error) {
     if (!(error instanceof HTTPError)) {
       console.error(error);
+      captureException(error);
 
       context.status = 400;
 
@@ -56,8 +65,44 @@ export const safeAPI: Middleware<any, any> = async (context: Context, next) => {
   }
 };
 
-export const withSafeKoa = <S, C>(...middlewares: Middleware<S, C>[]) =>
-  withKoa<S, C>({} as KoaOption, safeAPI, ...middlewares);
+const patchVinext = <T extends (request: IncomingMessage, response: ServerResponse) => unknown>(
+  handler: T,
+) =>
+  ((request, response) => {
+    const compatibleResponse = response as typeof response & {
+      removeHeader?: (name: string) => void;
+      resHeaders?: Record<string, unknown>;
+      setCookieHeaders?: string[];
+    };
+    // Vinext's PagesResponseStream omits removeHeader, which Koa 3 requires.
+    compatibleResponse.removeHeader ??= (name: string) => {
+      const key = name.toLowerCase();
+
+      if (key === 'set-cookie') compatibleResponse.setCookieHeaders?.splice(0);
+      else if (compatibleResponse.resHeaders)
+        delete compatibleResponse.resHeaders[key];
+    };
+    return handler(request, response);
+  }) as T;
+
+export const withVinextKoaRouter = <S, C extends RouterContext<S>>(
+  moduleURL: string,
+  router: RouterInstance<S, C>,
+  ...middlewares: Middleware<S, C>[]
+) =>
+  wrapApiHandlerWithSentry(
+    patchVinext(withKoaRouter(router, ...middlewares)),
+    sentryRouteOf(moduleURL),
+  );
+
+export const withSafeKoa = <S, C>(
+  moduleURL: string,
+  ...middlewares: Middleware<S, C>[]
+) =>
+  wrapApiHandlerWithSentry(
+    patchVinext(withKoa<S, C>({} as KoaOption, safeAPI, ...middlewares)),
+    sentryRouteOf(moduleURL),
+  );
 
 export interface ArticleMeta {
   name: string;

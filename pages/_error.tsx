@@ -1,4 +1,5 @@
 import * as Sentry from '@sentry/nextjs';
+import { wrapErrorGetInitialPropsWithSentry } from '@sentry/nextjs';
 import type { NextPageContext } from 'next';
 import Error from 'next/error';
 
@@ -14,14 +15,16 @@ import {
 const enableSentry = isDev || !process.env.SENTRY_AUTH_TOKEN;
 
 export default class CustomError extends Error<I18nProps> {
-  static async getInitialProps(context: NextPageContext) {
-    if (enableSentry) await Sentry.captureUnderscoreErrorException(context);
+  static getInitialProps = wrapErrorGetInitialPropsWithSentry(
+    async (context: NextPageContext) => {
+      if (enableSentry) await Sentry.captureUnderscoreErrorException(context);
 
-    return {
-      ...(await Error.getInitialProps(context)),
-      ...(await loadSSRLanguage(context)),
-    };
-  }
+      return {
+        ...(await Error.getInitialProps(context)),
+        ...(await loadSSRLanguage(context)),
+      };
+    },
+  );
 
   i18nStore = createI18nStore(this.props.language, this.props.languageMap);
 

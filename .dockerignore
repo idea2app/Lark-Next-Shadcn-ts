@@ -3,7 +3,6 @@ node_modules/
 eslint.config.ts
 .next/
 .vercel/
-start.sh
 .husky/
 .github/
 .vscode/

@@ -1,4 +1,4 @@
-FROM node:22-slim AS base
+FROM node:24-slim AS base
 RUN apt-get update && \
     apt-get install ca-certificates curl libjemalloc-dev -y --no-install-recommends  && \
     rm -rf /var/lib/apt/lists/*
@@ -18,9 +18,9 @@ RUN CI=true  pnpm build
 
 FROM base
 COPY --from=build /app/public ./public
-COPY --from=build /app/.next/static ./.next/static
-COPY --from=build /app/.next/standalone ./
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist ./dist
 EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
-CMD ["node", "server.js"]
+CMD ["pnpm", "start"]
